@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #pip install pygame
 
 # BreakthroughGame
@@ -10,3 +11,7 @@ Here we want to implement agents to play the above game, one using minimax searc
 Features that were taken into consideration include “important pieces”, “connected pairs of pieces”, etc. Accept parameters' configuration to make the agent more aggresive/defensive.
 
 The demo game interface:
+=======
+# Breakthrough
+An implementation of the board game Breakthrough and an AI Agent capable of playing it.  This project was a group project created for the course CS591 at Southeast Missouri State University.
+>>>>>>> origin/main
