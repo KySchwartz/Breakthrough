@@ -1,3 +1,4 @@
+import random
 
 initial_boardmatrix = [[1, 1, 1, 1, 1, 1, 1, 1],
                [1, 1, 1, 1, 1, 1, 1, 1],
@@ -162,11 +163,10 @@ class State:
             return self.offensive_function_long(turn)
         elif self.function == 6:
             return self.defensive_function_long(turn)
-
-
-
-
-
+        elif self.function == 7:
+            return self.offensive_function_2(turn)
+        elif self.function == 8:
+            return self.defensive_function_2(turn)
 
     # def myscore(self, turn):
     #     if turn == 1:
@@ -300,6 +300,39 @@ class State:
         return 1 * self.myscore(turn) - 2 * self.enemyscore(turn)
                #+ 2 * self.get_vertical_pairs(turn) + 4 * self.get_important_pos_baseline(turn)
 
+    # --------------------------
+    # Offensive Heuristic 2 (ID=7)
+    # --------------------------
+    def offensive_function_2(self, turn):
+        """
+        Offensive Heuristic 2 (ID=7):
+        - Strong push on own material/progress
+        - Reward capture opportunities (enemy on your forward diagonals)
+        - Tiny noise to break ties
+        """
+        my_mat_prog  = self.myscore(turn)
+        opp_mat_prog = self.enemyscore(turn)
+        my_targets   = self.get_diff_diagonal_pairs()   # enemy on your capture diagonals
+        value = (3.0 * my_mat_prog) - (1.0 * opp_mat_prog) + (1.5 * my_targets)
+        return value + random.uniform(-0.1, 0.1)
+
+    # --------------------------
+    # Defensive Heuristic 2 (ID=8)
+    # --------------------------
+    def defensive_function_2(self, turn):
+        """
+        Defensive Heuristic 2 (ID=8):
+        - Survival first (own material/progress)
+        - Reward vertical stacks (harder to capture)
+        - Penalize opponent material/progress heavily
+        - Discourage being exposed to diagonal threats
+        """
+        my_mat_prog  = self.myscore(turn)
+        opp_mat_prog = self.enemyscore(turn)
+        stacks       = self.get_vertical_pairs(turn)
+        threats      = self.get_diff_diagonal_pairs()
+        value = (1.0 * my_mat_prog) + (2.0 * stacks) - (3.0 * opp_mat_prog) - (1.0 * threats)
+        return value + random.uniform(-0.1, 0.1)
 
     def myscore_3_workers(self, turn):
         if turn == 1:
