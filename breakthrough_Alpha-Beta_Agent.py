@@ -298,12 +298,9 @@ def headless_demo():
 
 # Entrypoint
 if __name__ == "__main__":
-    # Choose ONE of the following:
-    # 1) Run the GUI for manual play:
     run_gui()
 
-    # 2) Or comment the line above and run a headless logged match:
-    # headless_demo()
+    
 
 # Alpha-Beta Agent (depth=4)
 class AlphaBetaAgent:
@@ -408,4 +405,5 @@ class AlphaBetaAgent:
             alpha = max(alpha, best_val)
 
         return best_mv
+
 
