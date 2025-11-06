@@ -1,6 +1,4 @@
 # breakthrough_board.py
-# Combined: your Pygame board viewer + Step 1 (game scaffold) + Step 2 (instrumentation)
-
 import pygame
 import sys
 import copy
@@ -410,3 +408,4 @@ class AlphaBetaAgent:
             alpha = max(alpha, best_val)
 
         return best_mv
+
